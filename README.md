@@ -2,6 +2,12 @@
 
 This is a SQL (currently support only PostgreSQL) database trigger module for [NestJS]("http://nestjs.com/") which allow you to use decorators on SQL triggers.
 
+# Installation
+
+```
+$ npm install nestjs-database-trigger –save
+```
+
 # Example
 
 app.module.ts
