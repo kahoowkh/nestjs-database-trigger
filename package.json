@@ -1,0 +1,35 @@
+{
+  "name": "nestjs-database-trigger",
+  "version": "0.0.1",
+  "description": "A SQL database trigger module for NestJS",
+  "author": "kahoowkh <kahoowkh@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^7.6.18",
+    "@nestjs/core": "^7.4.4",
+    "pg": "^8.3.3"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^7.0.0",
+    "@nestjs/common": "^7.6.18",
+    "@nestjs/core": "^7.4.4",
+    "@nestjs/schematics": "^7.0.0",
+    "@types/express": "^4.17.3",
+    "@types/node": "^15.12.3",
+    "@typescript-eslint/eslint-plugin": "4.27.0",
+    "@typescript-eslint/parser": "4.27.0",
+    "eslint": "7.28.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.20.1",
+    "pg": "^8.3.3",
+    "prettier": "^2.3.1",
+    "ts-node": "^10.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.3.4"
+  }
+}
