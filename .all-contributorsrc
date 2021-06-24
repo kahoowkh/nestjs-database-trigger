@@ -6,6 +6,17 @@
   "commit": false,
   "contributors": [
     {
+      "login": "kahoowkh",
+      "name": "kahoowkh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26565078?v=4",
+      "profile": "https://github.com/kahoowkh",
+      "contributions": [
+        "doc",
+        "test",
+        "code"
+      ]
+    },
+    {
       "login": "Marcotsept",
       "name": "Marco Tse",
       "avatar_url": "https://avatars.githubusercontent.com/u/17099973?v=4",
