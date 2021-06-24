@@ -23,17 +23,32 @@ refs:
       run:
         name: Test
         command: yarn test
+    - &Report
+      run:
+        name: Report
+        command: yarn report
 
 jobs:
-  all:
+  test:
     <<: *container
     steps:
       - checkout
       - *Install
       - *Test
+  report:
+    <<: *container
+    steps:
+      - checkout
+      - *Install
+      - *Report
 
 workflows:
   version: 2
   all:
     jobs:
-      - all
+      - test
+      - report:
+          filters:
+            branches:
+              only:
+                - master
