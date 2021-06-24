@@ -1,22 +1,18 @@
-import { DynamicModule, Global, Module } from "@nestjs/common";
+import { DynamicModule, Global, Module, OnModuleDestroy } from "@nestjs/common";
 import { EventEmitter } from "events";
-import { Client, Notification } from "pg";
-import { DiscoveryModule } from '@nestjs/core';
+import { Client, Notification, Pool } from "pg";
+import { DiscoveryModule } from "@nestjs/core";
 import { TriggerService } from "./trigger.service";
 import { ConnectAsyncOptions, MessagePayload } from "./interfaces";
 import { TriggerAccessor } from "./trigger.accessor";
 
 @Global()
 @Module({})
-export class TriggerModule {
-  static async databaseAction(
-    connection: string,
-    tables: string[],
-    eventEmitter: EventEmitter,
-  ): Promise<{ [key: string]: string }> {
-    const pg = new Client(connection);
-    await pg.connect();
-    const createFunction = `
+export class TriggerModule implements OnModuleDestroy {
+  protected static pg: Client;
+
+  protected static get functionStatement() {
+    return `
         CREATE OR REPLACE FUNCTION public.change_data_capture()
           RETURNS trigger
           LANGUAGE plpgsql
@@ -29,37 +25,47 @@ export class TriggerModule {
             RETURN NULL;
         END;
         $function$;
-      `;
+    `;
+  }
 
-    await pg.query(createFunction).catch((e) => {
-      console.error(e);
-    });
-
-    const eventName: { [key: string]: string } = {};
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const table of tables) {
-      eventName[table] = `notify_${table}`;
-
-      const trigger = `
+  protected static triggerStatement(table: string) {
+    return `
           DROP TRIGGER IF EXISTS notify_Notification ON "${table}";
 
           CREATE TRIGGER notify_Notification
           AFTER INSERT OR UPDATE OR DELETE
           ON "${table}"
           FOR EACH ROW EXECUTE PROCEDURE change_data_capture();
-        `;
+    `;
+  }
 
-      pg.query(trigger).catch((e) => {
+  protected static async databaseAction(
+    connection: string,
+    tables: string[],
+    eventEmitter: EventEmitter,
+  ): Promise<{ [key: string]: string }> {
+    this.pg = new Client(connection);
+    await this.pg.connect();
+
+    await this.pg.query(this.functionStatement).catch((e) => {
+      console.error(e);
+    });
+
+    const eventName: { [key: string]: string } = {};
+
+    for (const table of tables) {
+      eventName[table] = `notify_${table}`;
+
+      await this.pg.query(this.triggerStatement(table)).catch((e) => {
         console.error(e);
       });
     }
 
-    await pg.query("Listen cdc_event").catch((e) => {
+    await this.pg.query("Listen cdc_event").catch((e) => {
       console.error(e);
     });
 
-    pg.on("notification", (message: Notification) => {
+    this.pg.on("notification", (message: Notification) => {
       try {
         if (!message.payload) return;
         const payload: MessagePayload = JSON.parse(message.payload);
@@ -67,10 +73,6 @@ export class TriggerModule {
       } catch (e) {
         console.error(e);
       }
-    });
-
-    process.on("exit", async () => {
-      await pg.end();
     });
 
     return eventName;
@@ -94,7 +96,9 @@ export class TriggerModule {
           inject: connectAsyncOptions.inject,
           provide: "EventNameObject",
           useFactory: async (...args) => {
-            const connectOptions = await connectAsyncOptions.useFactory(...args);
+            const connectOptions = await connectAsyncOptions.useFactory(
+              ...args,
+            );
             return this.databaseAction(
               connectOptions.connectionString,
               connectOptions.tables,
@@ -105,5 +109,9 @@ export class TriggerModule {
       ],
       exports: [TriggerService],
     };
+  }
+
+  async onModuleDestroy() {
+    await TriggerModule.pg.end();
   }
 }
