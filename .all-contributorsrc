@@ -15,6 +15,17 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "Marcotsept",
+      "name": "Marco Tse",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17099973?v=4",
+      "profile": "https://github.com/Marcotsept",
+      "contributions": [
+        "doc",
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

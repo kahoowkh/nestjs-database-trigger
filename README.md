@@ -79,6 +79,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/kahoowkh"><img src="https://avatars.githubusercontent.com/u/26565078?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kahoowkh</b></sub></a><br /><a href="https://github.com/kahoowkh/nestjs-database-trigger/commits?author=kahoowkh" title="Documentation">📖</a> <a href="https://github.com/kahoowkh/nestjs-database-trigger/commits?author=kahoowkh" title="Tests">⚠️</a> <a href="https://github.com/kahoowkh/nestjs-database-trigger/commits?author=kahoowkh" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Marcotsept"><img src="https://avatars.githubusercontent.com/u/17099973?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marco Tse</b></sub></a><br /><a href="https://github.com/kahoowkh/nestjs-database-trigger/commits?author=Marcotsept" title="Documentation">📖</a> <a href="https://github.com/kahoowkh/nestjs-database-trigger/commits?author=Marcotsept" title="Tests">⚠️</a> <a href="https://github.com/kahoowkh/nestjs-database-trigger/commits?author=Marcotsept" title="Code">💻</a></td>
   </tr>
 </table>
 
