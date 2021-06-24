@@ -31,3 +31,9 @@ jobs:
       - checkout
       - *Install
       - *Test
+
+workflows:
+  version: 2
+  all:
+    jobs:
+      - all
