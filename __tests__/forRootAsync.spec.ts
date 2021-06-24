@@ -3,7 +3,6 @@ import { NestFactory } from "@nestjs/core";
 import { TriggerModule, OnTrigger, MessagePayload } from "../src";
 import { Client } from "pg";
 import { TriggerService } from "../src/trigger.service";
-import exp from "constants";
 
 type User = {
   id: number;
