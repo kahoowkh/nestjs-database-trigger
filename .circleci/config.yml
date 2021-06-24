@@ -1,0 +1,39 @@
+version: 2
+
+refs:
+  container: &container
+    docker:
+      - image: node:12
+        environment:
+          DATABASE_URL: 'postgres://test-user@localhost:5432/test-db'
+      - image: postgres:13
+        environment:
+          POSTGRES_USER: test-user
+          POSTGRES_DB: test-db
+          POSTGRES_HOST_AUTH_METHOD: trust
+
+    working_directory: ~/repo
+
+  steps:
+    - &Install
+      run:
+        name: Install Dependencies
+        command: yarn
+    - &Test
+      run:
+        name: Test
+        command: yarn test
+
+jobs:
+  all:
+    <<: *container
+    steps:
+      - checkout
+      - *Install
+      - *Test
+
+workflows:
+  version: 2
+  all:
+    jobs:
+      - all

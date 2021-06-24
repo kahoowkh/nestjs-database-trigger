@@ -3,6 +3,7 @@ const getDatabase = require("@databases/pg-test");
 
 exports.killers = [];
 module.exports = async () => {
+  if (process.env.CI) return;
   const { databaseURL, kill } = await getDatabase.default({
     image: "postgres:13",
   });
