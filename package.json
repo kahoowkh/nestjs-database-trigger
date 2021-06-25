@@ -1,8 +1,11 @@
 {
   "name": "nestjs-database-trigger",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A SQL database trigger module for NestJS",
-  "author": "kahoowkh <kahoowkh@gmail.com>",
+  "author": "kahoowkh <kahoowkh@gmail.com> (https://github.com/kahoowkh)",
+  "contributors": [
+    "Marco Tse <marcotsept@gmail.com> (https://github.com/Marcotsept)"
+  ],
   "license": "MIT",
   "repository": "github:kahoowkh/nestjs-database-trigger",
   "main": "dist/index.js",
@@ -16,14 +19,17 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest --verbose",
     "test:cov": "jest --coverage",
-    "report": "jest --coverage && coveralls < coverage/lcov.info"
+    "report": "jest --coverage && coveralls < coverage/lcov.info",
+    "prepare": "husky install"
   },
   "peerDependencies": {
-    "@nestjs/common": "7.6.18",
-    "@nestjs/core": "^7.4.4",
+    "@nestjs/common": "^7.0.0",
+    "@nestjs/core": "^7.0.0",
     "pg": "^8.3.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "@databases/pg-test": "^3.0.1",
     "@nestjs/common": "^7.6.18",
     "@nestjs/core": "^7.4.4",
@@ -40,7 +46,9 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
     "jest": "^27.0.5",
+    "lint-staged": "^11.0.0",
     "pg": "^8.3.3",
     "prettier": "^2.3.1",
     "reflect-metadata": "^0.1.13",
@@ -66,5 +74,11 @@
     "testEnvironment": "node",
     "globalSetup": "<rootDir>/__tests__/setup.js",
     "globalTeardown": "<rootDir>/__tests__/teardown.js"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write",
+      "eslint"
+    ]
   }
 }

@@ -1,7 +1,11 @@
 # nestjs-database-trigger
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 [![NPM](https://nodei.co/npm/nestjs-database-trigger.png)](https://nodei.co/npm/nestjs-database-trigger/)
 
 [![npm version](https://badge.fury.io/js/nestjs-database-trigger.svg)](https://badge.fury.io/js/nestjs-database-trigger)
@@ -16,7 +20,7 @@ This is a SQL (currently support only PostgreSQL) database trigger module for [N
 # Installation
 
 ```
-$ npm install nestjs-database-trigger –save
+$ npm install nestjs-database-trigger –-save
 ```
 
 # Example
@@ -69,7 +73,7 @@ We plan to support other SQL database in the future.
 
 # License
 
-Nest is [MIT licensed](LICENSE).
+nestjs-database-trigger is [MIT licensed](LICENSE).
 
 ## Contributors ✨
 

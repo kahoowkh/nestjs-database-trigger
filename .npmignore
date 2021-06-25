@@ -6,3 +6,8 @@ yarn.lock
 .release-it.json
 .eslintignore
 .eslintrc.js
+.husky
+.circleci
+.all-contributorsrc
+.commitlintrc.json
+__tests__
