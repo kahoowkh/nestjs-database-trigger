@@ -5,7 +5,7 @@ yarn.lock
 .prettierrc
 .release-it.json
 .eslintignore
-.eslintrc.js
+.eslintrc.json
 .husky
 .circleci
 .all-contributorsrc
