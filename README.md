@@ -1,17 +1,17 @@
 # nestjs-database-trigger
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 [![NPM](https://nodei.co/npm/nestjs-database-trigger.png)](https://nodei.co/npm/nestjs-database-trigger/)
 
 [![npm version](https://badge.fury.io/js/nestjs-database-trigger.svg)](https://badge.fury.io/js/nestjs-database-trigger)
 ![npm](https://img.shields.io/npm/dm/nestjs-database-trigger)
 [![CircleCI](https://circleci.com/gh/kahoowkh/nestjs-database-trigger.svg?style=svg)](https://circleci.com/gh/kahoowkh/nestjs-database-trigger)
 [![Coverage Status](https://coveralls.io/repos/github/kahoowkh/nestjs-database-trigger/badge.svg?branch=master)](https://coveralls.io/github/kahoowkh/nestjs-database-trigger?branch=master)
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # Description
 
@@ -20,7 +20,7 @@ This is a SQL (currently support only PostgreSQL) database trigger module for [N
 # Installation
 
 ```
-$ npm install nestjs-database-trigger –-save
+$ npm install nestjs-database-trigger --save
 ```
 
 # Example

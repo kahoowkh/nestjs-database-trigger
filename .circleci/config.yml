@@ -5,7 +5,7 @@ refs:
     docker:
       - image: node:12
         environment:
-          DATABASE_URL: 'postgres://test-user@localhost:5432/test-db'
+          DATABASE_URL: "postgres://test-user@localhost:5432/test-db"
       - image: postgres:13
         environment:
           POSTGRES_USER: test-user
@@ -19,6 +19,18 @@ refs:
       run:
         name: Install Dependencies
         command: yarn
+    - &RestoreCache
+      restore_cache:
+        name: Restore Dependencies Cache
+        keys:
+          - yarn-packages-{{ checksum "yarn.lock" }}
+          - yarn-packages- # used if checksum fails
+    - &SaveCache
+      save_cache:
+        name: Save Dependencies Cache
+        key: yarn-packages-{{ checksum "yarn.lock" }}
+        paths:
+          - node_modules
     - &Test
       run:
         name: Test
@@ -33,22 +45,56 @@ jobs:
     <<: *container
     steps:
       - checkout
+      - *RestoreCache
       - *Install
+      - *SaveCache
       - *Test
   report:
     <<: *container
     steps:
       - checkout
+      - *RestoreCache
       - *Install
+      - *SaveCache
       - *Report
+  deploy:
+    <<: *container
+    steps:
+      - checkout
+      - *RestoreCache
+      - *Install
+      - *SaveCache
+      - run:
+          name: Build
+          command: yarn build
+      - run:
+          name: Set registry URL
+          command: npm set registry https://registry.npmjs.org/
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
 
 workflows:
   version: 2
   all:
     jobs:
-      - test
+      - test:
+          filters:
+            tags:
+              only: /.*/
       - report:
           filters:
             branches:
               only:
                 - master
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
