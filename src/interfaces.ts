@@ -1,5 +1,9 @@
 import { ModuleMetadata } from "@nestjs/common";
 
+export enum Client {
+  pg = "pg",
+}
+
 export interface MessagePayload<T = any> {
   table: string;
   action: "INSERT" | "UPDATE" | "DELETE";
@@ -7,7 +11,8 @@ export interface MessagePayload<T = any> {
   oldData: T | null;
 }
 
-interface ConnectOptions {
+export interface ConnectOptions {
+  client: Client;
   connectionString: string;
   tables: string[];
 }

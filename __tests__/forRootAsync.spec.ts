@@ -3,6 +3,7 @@ import { NestFactory } from "@nestjs/core";
 import { TriggerModule, OnTrigger, MessagePayload } from "../src";
 import { Client } from "pg";
 import { TriggerService } from "../src/trigger.service";
+import { Client as ClientEnum } from "../src/interfaces";
 
 type User = {
   id: number;
@@ -47,7 +48,11 @@ describe(TriggerModule.name, () => {
   it(TriggerModule.forRootAsync.name, async () => {
     @Injectable()
     class UtilsService {
-      env: { dbUrl: string } = new (function (this: { dbUrl: string }) {
+      env: { client: ClientEnum; dbUrl: string } = new (function (this: {
+        client: string;
+        dbUrl: string;
+      }) {
+        this.client = "pg";
         this.dbUrl = connection;
       })();
     }
@@ -90,6 +95,7 @@ describe(TriggerModule.name, () => {
           imports: [UtilsModule],
           inject: [UtilsService],
           useFactory: async (utilsService: UtilsService) => ({
+            client: utilsService.env.client,
             connectionString: utilsService.env.dbUrl,
             tables: ["User"],
           }),

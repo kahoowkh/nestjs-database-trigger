@@ -34,7 +34,8 @@ TriggerModule.forRootAsync({
   imports: [UtilsModule],
   inject: [UtilsService],
   useFactory: async (utilsService: UtilsService) => ({
-    connectionString: databaseUrl,
+    client: utilsService.env.client, // "pg"
+    connectionString: utilsService.env.dbUrl,
     tables: ["Notification"],
   }),
 });
